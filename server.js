@@ -34,10 +34,14 @@ app.get('/api/v4/competitions/PL/standings', async (req, res) => {
 
     res.json(response.data);
 
-  } catch (error) {
-    console.error('Standings error:', error.message);
-    res.status(500).json({ error: 'API Request Failed' });
-  }
+  }catch (err) {
+  console.error(err.response?.data || err.message);
+
+  res.status(500).json({
+    error: 'Fixture API request failed',
+    details: err.response?.data || err.message
+  });
+}
 });
 
 // =============================
@@ -56,10 +60,14 @@ app.get('/fixtures', async (req, res) => {
 
     res.json(response.data);
 
-  } catch (error) {
-    console.error('Fixtures error:', error.message);
-    res.status(500).json({ error: 'Fixture API request failed' });
-  }
+  } catch (err) {
+  console.error(err.response?.data || err.message);
+
+  res.status(500).json({
+    error: 'Fixture API request failed',
+    details: err.response?.data || err.message
+  });
+}
 });
 
 // =============================
